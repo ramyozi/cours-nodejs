@@ -1,0 +1,17 @@
+{
+  "name": "cours-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "sayHello": "./bin/say-hello.js",
+    "sayWelcome": "./bin/say-welcome.js",
+    "sayGoodbye": "./bin/say-goodbye.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
