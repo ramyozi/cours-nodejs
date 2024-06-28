@@ -3,8 +3,18 @@
 <main>
     <button onclick="toggleModal(true)"><i class="fa fa-plus" title="Add New Task"></i></button>
 
+    <form action="/tasks" method="GET" style="margin-bottom: 20px;">
+        <label>Nom:</label>
+        <input type="text" name="name" placeholder="Nom de la tâche" value="<%= req.query.name || '' %>">
+        <label>De la date:</label>
+        <input type="date" name="startDate" value="<%= req.query.startDate || '' %>">
+        <label>à la date:</label>
+        <input type="date" name="endDate" value="<%= req.query.endDate || '' %>">
+        <button type="submit">Filter</button>
+        <a href="/tasks"><button type="button">Remove Filters</button></a>
+    </form>
     <% if (tasks && tasks.length > 0) { %>
-        <ul>
+        <ul id="tasksList">
             <% tasks.forEach(task => { %>
                 <div class="task">
                     <h2>
@@ -33,17 +43,7 @@
                     
 
                     <!-- Pour apres -->
-                    <!-- <form action="/tasks/<%= task._id %>/complete" method="POST" style="display: inline;">
-                        <button type="submit" title="Mark as complete" style="background: none; border: none; cursor: pointer; color: green;">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </form>
-                    <form action="/tasks/<%= task._id %>/reopen" method="POST" style="display: inline;">
-                        <button type="submit" title="Reopen" style="background: none; border: none; cursor: pointer; color: orange;">
-                            <i class="fas fa-undo"></i>
-                        </button>
-                    </form>
-                    <form action="/tasks/<%= task._id %>/archive" method="POST" style="display: inline;">
+                    <!-- <form action="/tasks/<%= task._id %>/archive" method="POST" style="display: inline;">
                         <button type="submit" title="Archive" style="background: none; border: none; cursor: pointer; color: gray;">
                             <i class="fas fa-archive"></i>
                         </button>
@@ -52,6 +52,10 @@
                 
             <% }); %>
         </ul>
+
+        <!-- Pagination retiré apres test -->
+        
+                
     <% } else { %>
         <p>Aucune tâche disponible</p>
     <% } %>
@@ -68,3 +72,4 @@
 </main>
 
 <%- include('components/footer') %>
+

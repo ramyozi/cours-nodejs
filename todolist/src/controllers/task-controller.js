@@ -1,12 +1,27 @@
 const Task = require('../models/task-model');
 
+
 exports.getTasks = async (req, res) => {
+    let query = {};
+    if (req.query.name) {
+        query.title = { $regex: req.query.name, $options: "i" }; 
+    }
+    if (req.query.startDate || req.query.endDate) {
+        query.deadline = {};
+        if (req.query.startDate) {
+            query.deadline.$gte = new Date(req.query.startDate);
+        }
+        if (req.query.endDate) {
+            query.deadline.$lte = new Date(req.query.endDate);
+        }
+    }
+
     try {
-        const tasks = await Task.find().sort({ deadline: 1 });
-        res.render('tasks', { tasks });
+        const tasks = await Task.find(query).sort({ deadline: 1 });
+        res.render('tasks', { tasks, req });
     } catch (error) {
         console.error('Failed to retrieve tasks:', error);
-        res.status(500).render('error', { error: 'Failed to load tasks' });  // Optionally render an error page
+        res.status(500).render('error', { error: 'Failed to load tasks' });
     }
 };
 
@@ -71,3 +86,40 @@ exports.reopenTask = async (req, res) => {
         res.status(400).send(error);
     }
 };
+
+
+
+/*
+controlleur pour fetch les taches (paginated) non utilisé car comportements bizarres à certains endroits de l'application
+exports.getTasks = async (req, res) => {
+    let query = {};
+    if (req.query.name) {
+        query.title = { $regex: req.query.name, $options: "i" }; 
+    }
+    if (req.query.startDate || req.query.endDate) {
+        query.deadline = {};
+        if (req.query.startDate) {
+            query.deadline.$gte = new Date(req.query.startDate);
+        }
+        if (req.query.endDate) {
+            query.deadline.$lte = new Date(req.query.endDate);
+        }
+    }
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4; 
+    const skip = (page - 1) * limit;
+
+
+    try {
+        const tasks = await Task.find(query).sort({ deadline: 1 }).skip(skip).limit(limit);
+        const totalTasks = await Task.countDocuments(query);
+        const totalPages = Math.ceil(totalTasks / limit);
+
+        res.render('tasks', { tasks, req, totalPages, currentPage: page });
+    } catch (error) {
+        console.error('Failed to retrieve tasks:', error);
+        res.status(500).render('error', { error: 'Failed to load tasks' });
+    }
+};
+*/
