@@ -1,0 +1,10 @@
+<form id="completeTaskForm" action="/tasks/<%= task._id %>/toggle-complete" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="isCompleted" value="<%= !task.isCompleted %>">
+</form>
+
+<script>
+    window.onload = function() {
+        document.getElementById('completeTaskForm').submit();
+    };
+</script>

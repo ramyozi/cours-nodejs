@@ -1,0 +1,70 @@
+<%- include('components/header', { title: 'All Tasks' }) %>
+
+<main>
+    <button onclick="toggleModal(true)"><i class="fa fa-plus" title="Add New Task"></i></button>
+
+    <% if (tasks && tasks.length > 0) { %>
+        <ul>
+            <% tasks.forEach(task => { %>
+                <div class="task">
+                    <h2>
+                        <%= task.title %> 
+                        <% if (task.isCompleted) { %>
+                            <i class="fa fa-check" title="Completed" style="color: green;"></i>
+                        <% } %>
+                    </h2>
+                    <p>Date de fin: <%= new Date(task.deadline).toLocaleDateString() %></p>
+                    <a href="#" onclick="handleDelete('<%= task._id %>')"><i class="fa fa-trash" title="Delete Task"></i></a>
+                    <a href="/tasks/<%= task._id %>"><i class="fa fa-pencil" title="View Details"></i></a>
+                    <!-- toggle status -->
+                    <% if (task.isCompleted && new Date(task.deadline) > new Date()) { %>
+                        <form method="post" action="/tasks/<%= task._id %>/reopen" style="display: inline;">
+                            <button type="submit" title="Reopen Task" style="background: none; border: none; cursor: pointer; color: orange;">
+                                <i class="fa fa-undo fa-fw"></i> Re-ouvrir
+                            </button>
+                        </form>
+                    <% } else if (!task.isCompleted) { %>
+                        <form method="post" action="/tasks/<%= task._id %>/complete" style="display: inline;">
+                            <button type="submit" title="Mark as complete" style="background: none; border: none; cursor: pointer; color: green;">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </form>
+                    <% } %>
+                    
+
+                    <!-- Pour apres -->
+                    <!-- <form action="/tasks/<%= task._id %>/complete" method="POST" style="display: inline;">
+                        <button type="submit" title="Mark as complete" style="background: none; border: none; cursor: pointer; color: green;">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </form>
+                    <form action="/tasks/<%= task._id %>/reopen" method="POST" style="display: inline;">
+                        <button type="submit" title="Reopen" style="background: none; border: none; cursor: pointer; color: orange;">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                    </form>
+                    <form action="/tasks/<%= task._id %>/archive" method="POST" style="display: inline;">
+                        <button type="submit" title="Archive" style="background: none; border: none; cursor: pointer; color: gray;">
+                            <i class="fas fa-archive"></i>
+                        </button>
+                    </form> -->
+                </div>
+                
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>Aucune tâche disponible</p>
+    <% } %>
+
+    <div id="createTaskModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal(false)">&times;</span>
+            <%- include('partials/create-task-modal') %>
+        </div>
+    </div>
+
+
+    <script src="/js/main.js"></script>
+</main>
+
+<%- include('components/footer') %>

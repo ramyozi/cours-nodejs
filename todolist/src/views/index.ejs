@@ -1,0 +1,21 @@
+<%- include('components/header', { title: 'All Tasks' }) %>
+
+<main>
+    <h1>Bienvenue sur la TodoList</h1>
+
+    <p>Les fonctionnalités disponibles: </p>
+        <ul>
+            <li><a href="/tasks">Voir mes tâches</a></li>
+            <li><a href="/about">À propos</a></li>
+            <li><a href="#" onclick="document.getElementById('createTaskModal').style.display='block'">Ajouter une tâche</a></li>
+            <li><a href="/tasks/667ecd1c388da4901f5b1cfa/">Modifier une tâche (667ecd1c388da4901f5b1cfa)</a></li>
+        </ul>            
+    <div id="createTaskModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal(false)">&times;</span>
+            <%- include('partials/create-task-modal') %>
+        </div>
+    </div>
+</main>
+
+<%- include('components/footer') %>

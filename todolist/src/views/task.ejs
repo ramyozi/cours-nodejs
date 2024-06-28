@@ -1,0 +1,17 @@
+<%- include('components/header', { title: 'All Tasks' }) %>
+
+<main>
+    <h1>Modifier Task</h1>
+    <form action="/tasks/<%= task._id %>?_method=PUT" method="POST">
+        <label for="title">Titre:</label>
+        <input type="text" id="title" name="title" value="<%= task.title %>" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"><%= task.description %></textarea>
+        <label for="deadline">Date limite: *</label> 
+        <input type="date" id="deadline" name="deadline" value="<%= new Date(task.deadline).toISOString().slice(0, 10) %>">
+        <button type="submit">Modifier Task</button>
+    </form>
+    <a href="/tasks">Retourner à la liste des tâches</a>
+</main>
+
+<%- include('components/footer') %>
