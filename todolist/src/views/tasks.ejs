@@ -11,7 +11,7 @@
         <label>à la date:</label>
         <input type="date" name="endDate" value="<%= req.query.endDate || '' %>">
         <button type="submit">Filter</button>
-        <a href="/tasks"><button type="button">Remove Filters</button></a>
+        <a href="/tasks"><button type="button">Retirer les filtres</button></a>
     </form>
     <% if (tasks && tasks.length > 0) { %>
         <ul id="tasksList">
@@ -20,12 +20,12 @@
                     <h2>
                         <%= task.title %> 
                         <% if (task.isCompleted) { %>
-                            <i class="fa fa-check" title="Completed" style="color: green;"></i>
+                            <i class="fa fa-check" title="Terminée" style="color: green;"></i>
                         <% } %>
                     </h2>
                     <p>Date de fin: <%= new Date(task.deadline).toLocaleDateString() %></p>
-                    <a href="#" onclick="handleDelete('<%= task._id %>')"><i class="fa fa-trash" title="Delete Task"></i></a>
-                    <a href="/tasks/<%= task._id %>"><i class="fa fa-pencil" title="View Details"></i></a>
+                    <a href="#" onclick="handleDelete('<%= task._id %>')"><i class="fa fa-trash" title="Supprimer la tâche" ></i></a>
+                    <a href="/tasks/<%= task._id %>"><i class="fa fa-pencil" title="Modifier la tâche" ></i></a>
                     <!-- toggle status -->
                     <% if (task.isCompleted && new Date(task.deadline) > new Date()) { %>
                         <form method="post" action="/tasks/<%= task._id %>/reopen" style="display: inline;">
@@ -35,7 +35,7 @@
                         </form>
                     <% } else if (!task.isCompleted) { %>
                         <form method="post" action="/tasks/<%= task._id %>/complete" style="display: inline;">
-                            <button type="submit" title="Mark as complete" style="background: none; border: none; cursor: pointer; color: green;">
+                            <button type="submit" title="Marquer comme terminé" style="background: none; border: none; cursor: pointer; color: green;">
                                 <i class="fas fa-check"></i>
                             </button>
                         </form>
