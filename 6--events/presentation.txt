@@ -1,0 +1,3 @@
+MODULE EVENTS
+
+Le module events fournit une interface pour la gestion des événements.

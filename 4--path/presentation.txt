@@ -1,0 +1,3 @@
+MODULE PATH
+
+Permet de construire des chemins de fichiers et de répertoires compatibles avec l'OS.
