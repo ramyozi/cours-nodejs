@@ -31,3 +31,20 @@ a {
 li {
     list-style-type: none;
 }
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background: #0056b3;
+}
