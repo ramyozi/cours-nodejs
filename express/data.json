@@ -1,0 +1,24 @@
+{
+    "products": [
+        {
+            "name": "iPhone 12",
+            "origin": "United States",
+            "price": 999.99
+        },
+        {
+            "name": "Samsung Galaxy S21",
+            "origin": "South Korea",
+            "price": 899.99
+        },
+        {
+            "name": "Sony PlayStation 5",
+            "origin": "Japan",
+            "price": 499.99
+        },
+        {
+            "name": "Tesla Model 3",
+            "origin": "United States",
+            "price": 39990.00
+        }
+    ]
+}
